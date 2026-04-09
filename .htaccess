@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Do not rewrite existing files or directories
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Leave any future API path alone if it is later handled separately
+  RewriteRule ^api(/|$) - [L]
+
+  # SPA fallback for client-side routes
+  RewriteRule ^ index.html [L]
+</IfModule>
